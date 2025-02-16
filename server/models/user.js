@@ -14,7 +14,7 @@ var userSchema = new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unique:true,
+        unique:true, // không được trùng 
     },
     mobile:{
         type:String,
@@ -23,7 +23,7 @@ var userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,
+        required:true, // bắt buộc có
     },
     role:{
         type:String,
@@ -34,24 +34,24 @@ var userSchema = new mongoose.Schema({
         default:[]
     },
     address:[{type: mongoose.Types.ObjectId,ref: 'Address'}],
-    wishlist:[{type: mongoose.Types.ObjectId,ref: 'Product'}],
+    wishlist:[{type: mongoose.Types.ObjectId,ref: 'Product'}], // id sản phẩm người dùng yêu thích
     isBlocked: {
         type: Boolean,
         default: false
-    },
+    }, // chức năng khóa tài khoản
     refreshToken: {
         type: String,
 
     },
-    passwordChangeAt: {
-        type: String
-    },
+    passwordChangeAt: { 
+        type: String 
+    },// quên mật khẩu
     passwordResetToken: {
         type: String
-    },
+    }, // xác nhận tài lại tài khoản bằng cách gửi 1 cái mã token qua mail
     passwordResetExpries: {
         type: String
-    }
+    } // thời gian cái mã token sau khi gửi tồn tại
 
 }, {
     timestamps: true
@@ -63,10 +63,15 @@ userSchema.pre('save', async function(next){
         next() // same return
     }
     const salt = bcrypt.genSaltSync(10)
-    this.password = await bcrypt.hash(this.password,salt)
+    this.password = await bcrypt.hash(this.password,salt) // bỏ pass vào muối để băm
 
-    
 })
+
+userSchema.methods = {
+    isCorrectPassword: async function(password) {
+        return await bcrypt.compare(password, this.password)
+    }
+}
 
 //Export the model
 module.exports = mongoose.model('User', userSchema);
