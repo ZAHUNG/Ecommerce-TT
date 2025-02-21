@@ -1,9 +1,13 @@
 const router = require('express').Router()
-const crtls = require('../controllers/user')
+const ctrls = require('../controllers/user')
 const {verifyAccessToken} = require('../middlewares/verifyToken')
 
-router.post('/register', crtls.register)
-router.post('/login', crtls.login)
-router.get('/current', verifyAccessToken, crtls.getCurrent)
+router.post('/register', ctrls.register)
+router.post('/login', ctrls.login)
+router.get('/current', verifyAccessToken, ctrls.getCurrent)
+router.post('/refreshtoken',  ctrls.refreshAccessToken)
+router.get('/logout', verifyAccessToken, ctrls.logout)
+
+
 
 module.exports = router

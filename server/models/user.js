@@ -71,7 +71,7 @@ userSchema.methods = {
     isCorrectPassword: async function(password) {
         return await bcrypt.compare(password, this.password)
     }
-}
+} // campare pass tra ve true or false
 
 //Export the model
 module.exports = mongoose.model('User', userSchema);
