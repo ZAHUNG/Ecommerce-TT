@@ -127,7 +127,7 @@ const ratings = asyncHandler(async (req, res ) => {
     }
     
     //sum ratings
-    const updateProduct = await Product.findById(pid)
+    const updatedProduct = await Product.findById(pid)
     const ratingCount = updatedProduct.ratings.length
     const sumRatings = updatedProduct.ratings.reduce((sum, el) => sum + +el.star,0)
     updatedProduct.totalRatings = Math.round(sumRatings *10 /ratingCount) /10
@@ -142,7 +142,7 @@ const ratings = asyncHandler(async (req, res ) => {
 module.exports = {
     createProduct,
     getProduct,
-    getRespons,
+    getProducts,
     updateProduct,
     deleteProduct,
     ratings,

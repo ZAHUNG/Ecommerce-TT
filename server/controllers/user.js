@@ -46,7 +46,7 @@ const login = asyncHandler(async(req, res) =>{
         // lưu refresh token vào database
         await User.findByIdAndUpdate(response._id, { refreshToken: newRefreshToken }, { new: true})
         // lưu refresh token vào cookie
-        res.cookie('refreshToken', newRefreshTokenefreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }) // time 7 ngày
+        res.cookie('refreshToken', newRefreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }) // time 7 ngày
         return res.status(200).json({
             success: true,
             accessToken,

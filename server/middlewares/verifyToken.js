@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 
 const verifyAccessToken = asyncHandler(async(req, res, next) => {
-    console.log("Authorization Header:", req.headers.authorization);
+   
     // Bearer token: quy định chung
     // headers: {authorization: Bearer token}
     if (req?.headers?.authorization?.startsWith('Bearer')){
@@ -23,7 +23,17 @@ const verifyAccessToken = asyncHandler(async(req, res, next) => {
         })
     }
 })
+const isAdmin = asyncHandler((req, res, next) => {
+    const { role } = req.user
+    if (role !== 'admin')
+        return res.status(401).json({
+            success: false,
+            mes: ' REQUIRE ADMIN ROLE'
+        })
+    next()
+})
 
 module.exports = {
-    verifyAccessToken
+    verifyAccessToken,
+    isAdmin
 }
