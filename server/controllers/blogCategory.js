@@ -5,7 +5,7 @@ const createCategory = asyncHandler(async(req, res) =>{
     const response = await BlogCategory.create(req.body)
     return res.json({
         success: response ? true : false,
-        createCategory: response ? response :' Cannot create new blog-category'
+        createdCategory: response ? response :' Cannot create new blog-category'
     })
 
 })
