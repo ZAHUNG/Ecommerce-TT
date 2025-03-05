@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'); // Erase if already required
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const product = require('./product');
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
@@ -29,11 +30,12 @@ var userSchema = new mongoose.Schema({
         type:String,
         default: 'user',
     },
-    cart:{
-        type: Array,
-        default:[]
-    },
-    address:[{type: mongoose.Types.ObjectId,ref: 'Address'}],
+    cart:[{
+        product: {type: mongoose.Types.ObjectId, ref: 'Product'},
+        quantity:Number,
+        color:String
+    }],
+    address:String,
     wishlist:[{type: mongoose.Types.ObjectId,ref: 'Product'}], // id sản phẩm người dùng yêu thích
     isBlocked: {
         type: Boolean,
