@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const product = require('./product');
 
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
+var usersSchema = new mongoose.Schema({
     firstname:{
         type:String,
         required:true, 
@@ -76,4 +76,4 @@ userSchema.methods = {
 } // campare pass tra ve true or false
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Users', userSchema);
