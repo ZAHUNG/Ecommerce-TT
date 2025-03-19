@@ -76,4 +76,4 @@ usersSchema.methods = {
 } // campare pass tra ve true or false
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', usersSchema);

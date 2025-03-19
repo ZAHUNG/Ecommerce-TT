@@ -1,3 +1,25 @@
+const mongoose = require('mongoose');
+
+const couponSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    discount: {
+        type: Number,
+        required: true
+    },
+    expiry: {
+        type: Date,
+        required: true
+    }
+}, {
+    timestamps: true
+});
+
+module.exports = mongoose.models.Coupon || mongoose.model('Coupon', couponSchema);
+
 const Coupon = require('../models/coupon')
 const asyncHandler = require('express-async-handler')
 
@@ -43,6 +65,4 @@ module.exports = {
     getCoupons,
     updateCoupon,
     deleteCoupon
-
-    
 }
